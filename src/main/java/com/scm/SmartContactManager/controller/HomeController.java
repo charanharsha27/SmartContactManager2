@@ -30,4 +30,28 @@ public class HomeController {
         model.addAttribute("name", "Hello Charan");
         return "services";
     }
+
+    //contact page
+    @GetMapping("/contact")
+    public String contactPage(Model model) {
+        System.out.println("In contact page handler");
+        model.addAttribute("name", "Hello Charan");
+        return "contact";
+    }
+
+    //login page
+    @GetMapping("/login")
+    public String loginPage(Model model) {
+        System.out.println("In login page handler");
+        model.addAttribute("name", "Hello Charan");
+        return "login";
+    }
+
+    //dignup page
+    @GetMapping("/signup")
+    public String signUp(Model model) {
+        System.out.println("In signup page handler");
+        model.addAttribute("name", "Hello Charan");
+        return "signup";
+    }
 }

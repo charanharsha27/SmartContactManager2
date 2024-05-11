@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: basepage(~{::#content},~{::title})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Services Page</title>
+<title>Services page</title>
 </head>
 <body>
-    <div class="container" th:replace="~{index :: parent(~{::section})}">
-        <section>
-                <h1>Helloooooo</h1>
-        </section>
-    </div>
+<div id="content">
+    <h1>Welcome to services page</h1>
+</div>
+<script>
+    console.log("Home page");
+</script>
 </body>
 </html>

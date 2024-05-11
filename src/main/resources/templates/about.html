@@ -1,15 +1,14 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" th:replace="~{base :: basepage(~{::#content},~{::title})}">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<title>About page</title>
 </head>
 <body>
-    <div class="container" th:replace= "${isLogin} ? ~{index :: parent(~{::section})} : ~{index :: notLogin}">
-        <section>
-                <h1>Hello</h1>
-        </section>
-    </div>
+<div id="content">
+    <h1>Welcome to about page</h1>
+</div>
+<script>
+    console.log("Home page");
+</script>
 </body>
 </html>
