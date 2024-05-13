@@ -1,11 +1,21 @@
 package com.scm.SmartContactManager.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import com.scm.SmartContactManager.entities.User;
+import com.scm.SmartContactManager.forms.UserForm;
+import com.scm.SmartContactManager.service.IUserServiceImpl;
 
 @Controller
 public class HomeController {
+
+    @Autowired
+    private IUserServiceImpl userService;
 
     @GetMapping("/index")
     public String home(Model model) {
@@ -50,8 +60,26 @@ public class HomeController {
     //dignup page
     @GetMapping("/signup")
     public String signUp(Model model) {
-        System.out.println("In signup page handler");
-        model.addAttribute("name", "Hello Charan");
+        UserForm userForm = new UserForm();
+        userForm.setName("Charan");
+        userForm.setEmail("charan@gmail.com");
+        model.addAttribute("user", userForm);
         return "signup";
+    }
+
+    @PostMapping("/process-register")
+    public String processRegister(@ModelAttribute UserForm userForm){
+        System.out.println(userForm);
+
+        User u = User.builder()
+        .name(userForm.getName())
+        .email(userForm.getEmail())
+        .password(userForm.getPassword())
+        .about(userForm.getAbout())
+        .build();
+
+        User user = userService.saveUser(u);
+        System.out.println("User saved :"+user);
+        return "redirect:signup";
     }
 }

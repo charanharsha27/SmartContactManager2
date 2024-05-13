@@ -9,10 +9,10 @@ document.addEventListener("DOMContentLoaded", () => {
 function changeTheme(currentTheme){
     // Accessing the css-class property of html element
     document.querySelector("html").classList.add(currentTheme);
-    let oldEle = currentTheme;
     
     let themechangeButton = document.querySelector("#light-dark-theme");
     themechangeButton.addEventListener("click", ()=> {
+        let oldEle = currentTheme;
         
         if(currentTheme === 'light'){
             currentTheme = 'dark';
