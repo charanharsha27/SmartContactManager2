@@ -3,6 +3,7 @@ console.log("Inside theme script file");
 let currentTheme = getTheme();
 
 document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#light-dark-theme span").textContent = currentTheme === 'light' ? ' Dark' : ' Light';
     changeTheme(currentTheme);
   });
 
@@ -33,6 +34,7 @@ function changeTheme(currentTheme){
         console.log(currentTheme);
 
         let newText = currentTheme === 'light' ? ' Dark' : ' Light';
+        console.log(`Current text: ${newText}`);
         themechangeButton.querySelector("span").textContent = newText;
     });
     
