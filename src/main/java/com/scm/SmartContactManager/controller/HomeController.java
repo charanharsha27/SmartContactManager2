@@ -1,8 +1,10 @@
 package com.scm.SmartContactManager.controller;
 
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.scm.SmartContactManager.entities.User;
 import com.scm.SmartContactManager.forms.UserForm;
 import com.scm.SmartContactManager.service.IUserServiceImpl;
+
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 
 @Controller
 public class HomeController {
@@ -61,15 +66,19 @@ public class HomeController {
     @GetMapping("/signup")
     public String signUp(Model model) {
         UserForm userForm = new UserForm();
-        userForm.setName("Charan");
-        userForm.setEmail("charan@gmail.com");
-        model.addAttribute("user", userForm);
+        model.addAttribute("userForm", userForm);
         return "signup";
     }
 
     @PostMapping("/process-register")
-    public String processRegister(@ModelAttribute UserForm userForm){
-        System.out.println(userForm);
+    public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,HttpSession session,Map<String,Object> map){
+        // System.out.println(userForm);
+
+        System.out.println("Error :"+rBindingResult);
+        if(rBindingResult.hasErrors()){
+            // map.put("user",userForm);
+            return "signup";
+        }
 
         User u = User.builder()
         .name(userForm.getName())
