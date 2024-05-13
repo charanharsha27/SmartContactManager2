@@ -3,7 +3,7 @@ package com.scm.SmartContactManager.forms;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -24,6 +24,7 @@ public class UserForm {
     @NotBlank(message = "Email field is required")
     private String email;
     @NotBlank(message = "Password field is required")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$", message = "Meet all the below specified password criteria")
     private String password;
     @NotBlank(message = "About field is required")
     private String about;

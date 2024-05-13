@@ -1,7 +1,60 @@
 <!DOCTYPE html>
 <html lang="en" th:replace="~{base :: basepage(~{::#content},~{::title})}" xmlns:th="http://www.thymeleaf.org">
 <head>
-<title>Home page</title>
+<title>Signup Page</title>
+<style th:fragment="pwdvalidator">
+input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  margin-top: 6px;
+  margin-bottom: 16px;
+}
+
+/* Style the container for inputs */
+.container {
+  background-color: #f1f1f1;
+  padding: 20px;
+}
+
+/* The message box is shown when the user clicks on the password field */
+#message {
+  display:none;
+  /* color: #000; */
+  position: relative;
+  padding: 20px;
+  margin-top: 10px;
+}
+
+#message p {
+  padding: 10px 35px;
+  font-size: 18px;
+}
+
+/* Add a green text color and a checkmark when the requirements are right */
+.valid {
+  color: green;
+}
+
+.valid:before {
+  position: relative;
+  left: -35px;
+  content: "✔";
+}
+
+/* Add a red text color and an "x" when the requirements are wrong */
+.invalid {
+  color: red;
+}
+
+.invalid:before {
+  position: relative;
+  left: -35px;
+  content: "✖";
+}
+</style>
 </head>
 <body>
 <div id="content">
@@ -41,15 +94,26 @@
 
                     <div class="mb-5">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Password</label>
-                        <input th:field="*{password}" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required />
+                        <input th:field="*{password}" type="password" id="psw" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required />
                         <p th:if="${#fields.hasErrors('password')}" style="color: red;" class="px-2" th:errors="*{password}">
                             password is required.
                         </p>
+
+                        <!-- Password validation-->
+                        <div id="message" class="dark:bg-gray-800">
+                            <h3 class="dark:text-white">Password must contain the following:</h3>
+                            <p id="letter" class="invalid">A <b>lowercase</b> letter</p>
+                            <p id="capital" class="invalid">A <b>capital (uppercase)</b> letter</p>
+                            <p id="number" class="invalid">A <b>number</b></p>
+                            <p id="spchars" class="invalid">A <b>Special</b> Character</p>
+                            <p id="length" class="invalid">Minimum <b>8 characters</b></p>
+                        </div>
+
                     </div>
                     
                     <div class="mb-5">
                         <label for="message" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your About</label>
-                        <textarea th:field="*{about}" id="message" rows="4" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write about yourself here..."></textarea>
+                        <textarea th:field="*{about}" id="textarea" rows="6" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Write about yourself here..."></textarea>
                         <p th:if="${#fields.hasErrors('about')}" style="color: red;" class="px-2" th:errors="*{about}">
                             about is required.
                         </p>
@@ -67,10 +131,12 @@
             </div>
         </div>
     </div>
+
+    
     
 </div>
 <script>
-    console.log("Home page");
+    console.log("Hello");    
 </script>
 </body>
 </html> 
