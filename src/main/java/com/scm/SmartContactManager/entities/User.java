@@ -39,7 +39,7 @@ public class User {
     private String phoneNumber;
 
     // verification details
-    private boolean enabled = false;
+    private boolean enabled = true;
     private boolean emailVerified = false;
     private boolean phoneVerified = false;
 

@@ -2,6 +2,7 @@ package com.scm.SmartContactManager.controller;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -16,11 +17,16 @@ import com.scm.SmartContactManager.service.IUserServiceImpl;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
+
+
 @Controller
 public class HomeController {
 
     @Autowired
     private IUserServiceImpl userService;
+
+    @Autowired
+    private PasswordEncoder passwordEncoder;
 
     @GetMapping("/index")
     public String home(Model model) {
@@ -83,7 +89,7 @@ public class HomeController {
         User u = User.builder()
         .name(userForm.getName())
         .email(userForm.getEmail())
-        .password(userForm.getPassword())
+        .password(passwordEncoder.encode(userForm.getPassword()))
         .about(userForm.getAbout())
         .build();
 
