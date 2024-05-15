@@ -78,7 +78,7 @@ public class HomeController {
 
     @PostMapping("/process-register")
     public String processRegister(@Valid @ModelAttribute UserForm userForm, BindingResult rBindingResult,HttpSession session,Map<String,Object> map){
-        // System.out.println(userForm);
+        System.out.println(userForm);
 
         System.out.println("Error :"+rBindingResult);
         if(rBindingResult.hasErrors()){
@@ -91,6 +91,7 @@ public class HomeController {
         .email(userForm.getEmail())
         .password(passwordEncoder.encode(userForm.getPassword()))
         .about(userForm.getAbout())
+        .enabled(true)
         .build();
 
         User user = userService.saveUser(u);

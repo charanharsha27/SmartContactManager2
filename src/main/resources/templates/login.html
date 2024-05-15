@@ -5,7 +5,57 @@
 </head>
 <body>
 <div id="content">
-    <h1>Welcome to login page</h1>
+    <div class="grid grid-cols-12 ">
+
+        <div class="col-span-4 md:col-span-2 lg:col-span-3 xl:col-span-4"></div>
+        <div class="col-span-12 md:col-span-8 lg:col-span-6 xl:col-span-4">
+            <div  class=" border-4 border-x-indigo-500 border-y-indigo-500 dark:border-x-indigo-500 dark:border-y-indigo-500 block p-6 bg-white  rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800  dark:hover:bg-gray-700">
+
+                <div class="flex justify-center">
+                    <div class="relative w-10 h-10 overflow-hidden bg-gray-100 rounded-full dark:bg-gray-600">
+                        <svg class="w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M10 9a3 3 0 100-6 3 3 0 000 6zm-7 9a7 7 0 1114 0H3z" clip-rule="evenodd"></path></svg>
+                    </div>
+                </div>
+
+                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Welcome Back User</h5>
+                <p class=" text-center font-normal text-gray-700 dark:text-gray-400">Login to Continue</p>
+                
+                <p class="text-red-600 text-center py-2" th:if="${param.error}">
+                    Invalid Credentials
+                </p>
+
+                <p class="text-green-500 text-center py-2" th:if="${param.logout}">
+                    You have been logged out successfully
+                </p>
+
+                <!-- Form-->
+                <form th:action="@{login}" class="mt-4" method="post">
+
+                    <div class="mb-5">
+                        <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your email</label>
+                        <input name="email" type="email" id="email" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="name@flowbite.com" required />
+                        
+                    </div>
+
+                    <div class="mb-5">
+                        <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Password</label>
+                        <input name="password" type="password" id="password" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required />
+                        
+
+                    </div>
+                    
+                    <div class="flex justify-center">
+                        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Login</button>
+                        <button type="reset" class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Reset</button>
+                    </div>
+
+
+                </form>
+
+
+            </div>
+        </div>
+    </div>
 </div>
 <script>
     console.log("Home page");
