@@ -1,5 +1,7 @@
 package com.scm.SmartContactManager.config;
 
+import java.io.IOException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,11 +9,17 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 import com.scm.SmartContactManager.service.UserDetailsServiceImpl;
+
+import jakarta.servlet.ServletException;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
 
 
 @Configuration
@@ -20,6 +28,9 @@ public class SecurityConfig {
 
     @Autowired
     private UserDetailsServiceImpl userDetailsServiceImpl;
+
+    @Autowired
+    private GoogleOAuth2AuthenticationSuccessHandler googleOAuth2AuthenticationSuccessHandler;
 
     @Bean
     public AuthenticationProvider daoAuthenticationProvider(){
@@ -62,6 +73,13 @@ public class SecurityConfig {
                     logout.permitAll()
                     .logoutSuccessUrl("/login?logout=true");
                 });
+        
+        http.oauth2Login((oauth2) -> {
+            oauth2.loginPage("/login");
+            oauth2.defaultSuccessUrl("/user/dashboard");
+            oauth2.failureUrl("/login?error=true");
+            oauth2.successHandler(googleOAuth2AuthenticationSuccessHandler);
+        });
 
         return http.build();
     }

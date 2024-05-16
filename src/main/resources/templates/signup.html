@@ -1,8 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" th:replace="~{base :: basepage(~{::#content},~{::title})}" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" th:replace="~{base :: basepage(~{::#content},~{::title},~{::style})}" xmlns:th="http://www.thymeleaf.org">
 <head>
 <title>Signup Page</title>
-<style th:fragment="pwdvalidator">
+<style>
 input {
   width: 100%;
   padding: 12px;
@@ -95,6 +95,7 @@ input {
                     <div class="mb-5">
                         <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Your Password</label>
                         <input th:field="*{password}" type="password" id="psw" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"  required />
+                        <input style="border-radius: 6px;" class="p-0" type="checkbox" onclick="myFunction()"> <span>Show Password</span>
                         <p th:if="${#fields.hasErrors('password')}" style="color: red;" class="px-2" th:errors="*{password}">
                             password is required.
                         </p>

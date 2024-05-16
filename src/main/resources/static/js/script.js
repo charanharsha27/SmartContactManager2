@@ -127,3 +127,31 @@ myInput.onkeyup = function() {
         specialChar.classList.add("invalid");
     }
 }
+
+function myFunction() {
+    console.log("Inside myFunction");
+
+    try{
+        var x = document.getElementById("password");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+    }
+    catch(e){
+        console.log(e);
+    }
+
+    try{
+        var x = document.getElementById("psw");
+        if (x.type === "password") {
+          x.type = "text";
+        } else {
+          x.type = "password";
+        }
+    }
+    catch(e){
+        console.log(e);
+    }
+  }
