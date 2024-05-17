@@ -96,6 +96,7 @@ public class HomeController {
 
         User user = userService.saveUser(u);
         System.out.println("User saved :"+user);
+        map.put("success",true);
         return "redirect:signup";
     }
 }
