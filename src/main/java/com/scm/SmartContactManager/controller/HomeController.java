@@ -2,6 +2,7 @@ package com.scm.SmartContactManager.controller;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 import com.scm.SmartContactManager.entities.User;
 import com.scm.SmartContactManager.forms.UserForm;
+import com.scm.SmartContactManager.helper.GetLoggedInUserName;
 import com.scm.SmartContactManager.service.IUserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
