@@ -8,6 +8,7 @@ public interface IUserService {
 
     public User saveUser(User user);
     public Optional<User> findByEmail(String email);
+    public User getUserByEmail(String email);
     public Optional<User> getUser(String userId);
     public List<User> getAllUsers();
     public Optional<User> updateUser(User user);

@@ -78,4 +78,9 @@ public class IUserServiceImpl  implements IUserService{
         return Optional.ofNullable(u);
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        return userDao.findByEmail(email).orElse(null);
+    }
+
 }
