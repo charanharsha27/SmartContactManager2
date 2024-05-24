@@ -22,6 +22,7 @@ import lombok.Setter;
 public class Contact {
     @Id
     private String contactId;
+    
     private String name;
     private String email;
     private String phoneNumber;
