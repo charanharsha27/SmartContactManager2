@@ -18,10 +18,12 @@ import com.scm.SmartContactManager.entities.Contact;
 import com.scm.SmartContactManager.entities.User;
 import com.scm.SmartContactManager.forms.ContactForm;
 import com.scm.SmartContactManager.helper.GetLoggedInUserName;
+import com.scm.SmartContactManager.helper.MessageHelper;
 import com.scm.SmartContactManager.service.IContactService;
 import com.scm.SmartContactManager.service.IUserService;
 import com.scm.SmartContactManager.service.ImageService;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 @Controller
 @RequestMapping("/user")
@@ -53,9 +55,10 @@ public class UserController {
     }
 
     @PostMapping("contacts/add")
-    public String processContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult rBindingResult,Authentication authentication){
+    public String processContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult rBindingResult,Authentication authentication,HttpSession session){
         
         if(rBindingResult.hasErrors()){
+            session.setAttribute("message",new MessageHelper("Fill all the fields correctly","danger"));
             return "user/add_contact";
         }
 
@@ -82,7 +85,7 @@ public class UserController {
 
         // Contact c = contactService.addContact(contact);
         // logger.info("Contact added : "+c);
-
+        session.setAttribute("message",new MessageHelper("Contact added to DB.!","success"));
         return "user/add_contact";
     }
 

@@ -9,5 +9,5 @@
           <span class="font-medium" th:text="${session.message.msg}">Success alert!</span>
         </div>
     </div>
-
+    <th:block th:utext="${@messageRemover.removeMessage()}"></th:block>
 </div>
