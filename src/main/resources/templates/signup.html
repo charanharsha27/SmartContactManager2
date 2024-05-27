@@ -143,6 +143,13 @@ transition: background-color .3s, box-shadow .3s;
 
                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white text-center">Signup Here.!</h5>
                 <p class=" text-center font-normal text-gray-700 dark:text-gray-400">Let's get started.</p>
+                <!--Message-->
+                <div th:if="${session.message}">
+                    <div th:replace="~{message :: messagebox}">
+
+                    </div>
+
+                </div>
 
                 <!-- Form-->
                 <form th:action="@{process-register}" class="mt-4" method="post" th:object="${userForm}" novalidate>

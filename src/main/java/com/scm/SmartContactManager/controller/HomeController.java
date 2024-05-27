@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import com.scm.SmartContactManager.entities.User;
 import com.scm.SmartContactManager.forms.UserForm;
 import com.scm.SmartContactManager.helper.GetLoggedInUserName;
+import com.scm.SmartContactManager.helper.MessageHelper;
 import com.scm.SmartContactManager.service.IUserServiceImpl;
 
 import jakarta.servlet.http.HttpSession;
@@ -85,6 +86,7 @@ public class HomeController {
         System.out.println("Error :"+rBindingResult);
         if(rBindingResult.hasErrors()){
             // map.put("user",userForm);
+            session.setAttribute("message",new MessageHelper("Please correct the errors","danger"));
             return "signup";
         }
 
@@ -96,9 +98,10 @@ public class HomeController {
         .enabled(true)
         .build();
 
-        User user = userService.saveUser(u);
-        System.out.println("User saved :"+user);
+        // User user = userService.saveUser(u);
+        // System.out.println("User saved :"+user);
         map.put("success",true);
+        session.setAttribute("message",new MessageHelper("User registered successfully","success"));
         return "redirect:signup";
     }
 }

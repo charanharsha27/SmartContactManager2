@@ -169,12 +169,9 @@
                   <label class="block mb-2 text-sm font-medium text-gray-900 dark:text-white" for="large_size"
                     >Contact Image</label
                   >
-                  <input
-                    id="image_file_input"
-                    class="block w-full mb-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400"
-                    th:field="*{profilePic}"
-                    type="file"
-                  />
+                  <input id="input_image" onchange="imagePreview(this,'image_preview')" class="block w-full mb-2 text-xs text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400" th:field="*{profilePic}" type="file"/>
+
+                  <img src="" id="image_preview" alt="" class="max-h-52 rounded-lg mx-auto m-3 shadow">
 
                   <p
                     class="text-red-500"
@@ -216,7 +213,7 @@
       </div>
     </div>
 
-    <script th:src="@{'/js/admin.js'}"></script>
+    <script th:src="@{/js/image_preview.js}"></script>
     <script>
       console.log("this is profile page");
     </script>

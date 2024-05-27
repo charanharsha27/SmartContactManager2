@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "contacts")
@@ -19,6 +20,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@ToString
 public class Contact {
     @Id
     private String contactId;
@@ -30,10 +32,14 @@ public class Contact {
     private String about;
     private String profilePic;
     private boolean favourite = false;
+    private String cloudinaryContactId;
 
     @ManyToOne
+    @ToString.Exclude
     private User user;
 
     @OneToMany(mappedBy = "contact",cascade = CascadeType.ALL, orphanRemoval = true)
     private List<SocialLinks> socaialLinks = new ArrayList<>();
+
+    
 }
