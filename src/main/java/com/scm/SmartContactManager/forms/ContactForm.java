@@ -2,6 +2,8 @@ package com.scm.SmartContactManager.forms;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.scm.SmartContactManager.annotations.ValidFile;
+
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
@@ -29,6 +31,7 @@ public class ContactForm {
     private String phoneNumber;
     @NotBlank(message = "About field is required")
     private String about;
+    @ValidFile(message = "Invalid file")
     private MultipartFile profilePic;
     private boolean favorite;
 }
