@@ -1,6 +1,7 @@
 package com.scm.SmartContactManager.controller;
 
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
 import org.slf4j.Logger;
@@ -83,8 +84,8 @@ public class UserController {
         contact.setCloudinaryContactId(fileName);
         contact.setUser(user);
 
-        // Contact c = contactService.addContact(contact);
-        // logger.info("Contact added : "+c);
+        Contact c = contactService.addContact(contact);
+        logger.info("Contact added : "+c);
         session.setAttribute("message",new MessageHelper("Contact added to DB.!","success"));
         return "user/add_contact";
     }
@@ -96,6 +97,15 @@ public class UserController {
         // List<Contact> contacts = contactService.getContacts(user);
         logger.info("Contacts : "+user.getContact());
         return "user/dashboard";
+    }
+
+    @GetMapping("/view-contacts")
+    public String viewContacts(Authentication authentication,Map<String,Object> map){
+        String email = GetLoggedInUserName.getLoggedInUserEmail(authentication);
+        User user = userService.getUserByEmail(email);
+        List<Contact> contacts = contactService.getContacts(user);
+        map.put("contacts", contacts);
+        return "user/view_contacts";
     }
 
 }
