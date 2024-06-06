@@ -75,10 +75,19 @@
                                 </tr>
                             </tbody>
                         </table>
+                        
+                        <div th:if="${!contacts.isEmpty()}" class="pagination_container text-center p-3">
+                            <nav aria-label="Page navigation example">
+                                <ul class="inline-flex -space-x-px text-base h-10">
+                                    <li th:if="${currPage != 0}" class="flex items-center justify-center px-4 h-10 ms-0 leading-tight text-gray-500 bg-white border border-e-0 border-gray-300 rounded-s-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white "><a class="page-link" th:href="@{'?page='+${currPage - 1}}">Previous</a></li>
+                                    <li th:classappend="${currPage==i-1?'active':''}"  th:each="i : ${#numbers.sequence(1,totalPages)}" href="#" aria-current="page" class="flex items-center justify-center px-4 h-10 text-blue-600 border border-gray-300 bg-blue-50 hover:bg-blue-100 hover:text-blue-700 dark:border-gray-700 dark:bg-gray-700 dark:text-white "><a class="page-link" th:href="@{'?page='+${i-1}}"><span th:text="${i}"></span></a></li>
+                                    <li th:if="${currPage+1 != totalPages}" class="flex items-center justify-center px-4 h-10 leading-tight text-gray-500 bg-white border border-gray-300 rounded-e-lg hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white "><a class="page-link" th:href="@{'?page='+${currPage+1}}">Next</a></li>
+                                </ul>
+                              </nav>
+                        </div>
 
-                        <h1 class="text-5xl text-center dark:bg-gray-800 dark:text-white bg-white p-4"
-                                
-                            No result found
+                        <h1 th:if="${contacts.isEmpty()}" class="text-5xl text-center dark:bg-gray-800 dark:text-white bg-white p-4">
+                            No Contacts Found
                         </h1>
                     </div>
                 </div>

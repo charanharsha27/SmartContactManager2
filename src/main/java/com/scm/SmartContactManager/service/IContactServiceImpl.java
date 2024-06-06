@@ -4,6 +4,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import com.scm.SmartContactManager.dao.IContactDao;
@@ -11,6 +15,8 @@ import com.scm.SmartContactManager.dao.IUserDao;
 import com.scm.SmartContactManager.entities.Contact;
 import com.scm.SmartContactManager.entities.User;
 import com.scm.SmartContactManager.helper.ResourceNotFoundException;
+
+import lombok.var;
 
 @Service
 public class IContactServiceImpl implements IContactService{
@@ -69,11 +75,12 @@ public class IContactServiceImpl implements IContactService{
     }
 
     @Override
-    public List<Contact> getContacts(User user) {
+    public Page<Contact> getContacts(User user,int page, int size, String sortBy, String direction) {
 
-        User u = userDao.findById(user.getUserId()).orElseThrow(() -> new ResourceNotFoundException("User not found"));
-        List<Contact> contacts = u.getContact();
-        return contacts;
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        PageRequest pageable = PageRequest.of(page, size);
+
+        return contactDao.findByUser(user, pageable);
     }
 
 }

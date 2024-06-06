@@ -49,63 +49,6 @@ public class UserController {
         return "user/dashboard";
     }
 
-    @GetMapping("contacts/add")
-    public String addContact(Model model){
-        model.addAttribute("contactForm",new ContactForm());
-        return "user/add_contact";
-    }
-
-    @PostMapping("contacts/add")
-    public String processContact(@Valid @ModelAttribute ContactForm contactForm,BindingResult rBindingResult,Authentication authentication,HttpSession session){
-        
-        if(rBindingResult.hasErrors()){
-            session.setAttribute("message",new MessageHelper("Fill all the fields correctly","danger"));
-            return "user/add_contact";
-        }
-
-        logger.info("contact Image: "+contactForm.getProfilePic().getOriginalFilename());
-
-        String fileName = UUID.randomUUID().toString();
-        logger.info("File Name : "+fileName);
-        String contactImageUrl = imageService.getImageUrl(contactForm.getProfilePic(),fileName);
-        logger.info("Contact Image URL : "+contactImageUrl);
-        String email = GetLoggedInUserName.getLoggedInUserEmail(authentication);
-        User user = userService.getUserByEmail(email);
-
-        logger.info("Contact Form : "+contactForm);
-        Contact contact = new Contact();
-        contact.setName(contactForm.getName());
-        contact.setEmail(contactForm.getEmail());
-        contact.setAbout(contactForm.getAbout());
-        contact.setFavourite(contactForm.isFavorite());
-        contact.setPhoneNumber(contactForm.getPhoneNumber());
-        contact.setContactId(UUID.randomUUID().toString());
-        contact.setProfilePic(contactImageUrl);
-        contact.setCloudinaryContactId(fileName);
-        contact.setUser(user);
-
-        Contact c = contactService.addContact(contact);
-        logger.info("Contact added : "+c);
-        session.setAttribute("message",new MessageHelper("Contact added to DB.!","success"));
-        return "user/add_contact";
-    }
-
-    @GetMapping("contacts/view")
-    public String getContacts(Authentication authentication){
-        String email = GetLoggedInUserName.getLoggedInUserEmail(authentication);
-        User user = userService.getUserByEmail(email);
-        // List<Contact> contacts = contactService.getContacts(user);
-        logger.info("Contacts : "+user.getContact());
-        return "user/dashboard";
-    }
-
-    @GetMapping("/view-contacts")
-    public String viewContacts(Authentication authentication,Map<String,Object> map){
-        String email = GetLoggedInUserName.getLoggedInUserEmail(authentication);
-        User user = userService.getUserByEmail(email);
-        List<Contact> contacts = contactService.getContacts(user);
-        map.put("contacts", contacts);
-        return "user/view_contacts";
-    }
+    
 
 }

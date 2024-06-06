@@ -1,6 +1,10 @@
 package com.scm.SmartContactManager.service;
 
 import java.util.*;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.scm.SmartContactManager.entities.Contact;
 import com.scm.SmartContactManager.entities.User;
 
@@ -15,5 +19,5 @@ public interface IContactService {
     public Optional<Contact> updateContact(Contact user);
     public void deleteContact(String ContactId);
     public void deleteContact(Contact contact);
-    public List<Contact> getContacts(User user);
+    public Page<Contact> getContacts(User user,int page, int size,String sortBy, String direction);
 }
