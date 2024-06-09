@@ -83,4 +83,35 @@ public class IContactServiceImpl implements IContactService{
         return contactDao.findByUser(user, pageable);
     }
 
+    @Override
+    public Page<Contact> getContactsByName(User user, String name, int page, int size, String sortBy,String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        PageRequest of = PageRequest.of(page, size, sort);
+
+        Page<Contact> contacts = contactDao.findByUserAndNameContaining(user, name, of);
+        
+        return contacts;
+    }
+
+    @Override
+    public Page<Contact> getContactsByEmail(User user, String email, int page, int size, String sortBy,String direction) {
+
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        PageRequest of = PageRequest.of(page, size, sort);
+
+        Page<Contact> contacts = contactDao.findByUserAndEmailContaining(user, email, of);
+        
+        return contacts;
+    }
+
+    @Override
+    public Page<Contact> getContactsByPhone(User user, String phone, int page, int size, String sortBy,String direction) {
+        Sort sort = direction.equalsIgnoreCase("desc") ? Sort.by(sortBy).descending() : Sort.by(sortBy).ascending();
+        PageRequest of = PageRequest.of(page, size, sort);
+
+        Page<Contact> contacts = contactDao.findByUserAndPhoneNumberContaining(user, phone, of);
+
+        return contacts;
+    }
+
 }

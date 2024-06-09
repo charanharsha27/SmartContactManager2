@@ -19,4 +19,8 @@ public interface IContactDao extends JpaRepository<Contact, String>{
     @Query("Select c from Contact c where c.user.userId = :userid")
     List<Contact> findByUserId(@Param("userid") String userId);
 
+    Page<Contact> findByUserAndNameContaining(User user,String name,Pageable pageable);
+    Page<Contact> findByUserAndEmailContaining(User user,String email,Pageable pageable);
+    Page<Contact> findByUserAndPhoneNumberContaining(User user,String phone,Pageable pageable);
+
 }

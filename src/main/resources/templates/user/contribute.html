@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:replace="~{user/base :: basepage(~{::#content},~{::title},~{::script})}">
+<head>
+    <meta charset="UTF-8">
+    <title>Contribute Us</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+</head>
+<body>
+    <div id="content">
+        <div class="sm:pl-64 pt-15" style="height: 1000px">
+            <div class="grid grid-cols-12">
+                <div class="col-span-3"></div>
+                <div class="col-span-12 md:col-span-6">
+                    <div class="block p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700">
+                        <div class="mb-5">
+                            <label for="amt" class="block mb-2 text-x font-medium text-gray-900 dark:text-white text-center"> <i class="fa-solid fa-indian-rupee-sign"></i> CONTRIBUTE US</label>
+                            <input type="text" id="amt" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Enter your amount here.." required />
+                        </div>
+                        <div class="text-center">
+                            <button onclick="startPayment()" type="button" class="text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">PAY</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+    </script>
+</body>
+</html>

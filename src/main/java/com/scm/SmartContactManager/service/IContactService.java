@@ -20,4 +20,8 @@ public interface IContactService {
     public void deleteContact(String ContactId);
     public void deleteContact(Contact contact);
     public Page<Contact> getContacts(User user,int page, int size,String sortBy, String direction);
+
+    Page<Contact> getContactsByName(User user, String name, int page, int size, String sortBy, String direction);
+    Page<Contact> getContactsByEmail(User user, String email, int page, int size, String sortBy, String direction);
+    Page<Contact> getContactsByPhone(User user, String phone, int page, int size, String sortBy, String direction);
 }

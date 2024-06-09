@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.scm.SmartContactManager.entities.Contact;
 import com.scm.SmartContactManager.entities.User;
 import com.scm.SmartContactManager.forms.ContactForm;
+import com.scm.SmartContactManager.forms.searchContactsForm;
 import com.scm.SmartContactManager.helper.GetLoggedInUserName;
 import com.scm.SmartContactManager.helper.MessageHelper;
 import com.scm.SmartContactManager.service.IContactService;
@@ -108,7 +109,52 @@ public class ContactController {
         map.put("contacts", contacts);
         map.put("currPage",page);
         map.put("totalPages",contacts.getTotalPages());
+        map.put("searchForm",new searchContactsForm());
         return "user/view_contacts";
     }
 
+    @GetMapping("/search-contacts")
+    public String searchContacts(@ModelAttribute("searchContactsForm") searchContactsForm search,Map<String,Object> map,Authentication authentication
+                                ,@RequestParam(value = "page",defaultValue = "0") int page,
+                                @RequestParam(value = "size",defaultValue = "1") int size,
+                                @RequestParam(value = "sortBy",defaultValue = "name") String sortBy,
+                                @RequestParam(value = "direction",defaultValue = "asc") String direction){
+        String email = GetLoggedInUserName.getLoggedInUserEmail(authentication);
+        User user = userService.getUserByEmail(email);
+        if(search.getSearchValue().isEmpty() || search.getSearchValue().isBlank()){
+            Page<Contact> contacts = contactService.getContacts(user,page,size,sortBy,direction);
+            map.put("contacts", contacts);
+            map.put("currPage",page);
+            map.put("totalPages",contacts.getTotalPages());
+            map.put("searchForm",search);
+            return "user/view_contacts";
+        }
+        
+        System.out.println("inside search controller");
+        if(search.getSearchType().equalsIgnoreCase("name")){
+            Page<Contact> contacts = contactService.getContactsByName(user,search.getSearchValue(),page,size,sortBy,direction);
+            map.put("contacts", contacts);
+            map.put("currPage",page);
+            map.put("totalPages",contacts.getTotalPages());
+        }else if(search.getSearchType().equalsIgnoreCase("email")){
+            Page<Contact> contacts = contactService.getContactsByEmail(user,search.getSearchValue(),page,size,sortBy,direction);
+            map.put("contacts", contacts);
+            map.put("currPage",page);
+            map.put("totalPages",contacts.getTotalPages());
+        }
+        else if(search.getSearchType().equalsIgnoreCase("phone")){
+            Page<Contact> contacts = contactService.getContactsByPhone(user,search.getSearchValue(),page,size,sortBy,direction);
+            map.put("contacts", contacts);
+            map.put("currPage",page);
+            map.put("totalPages",contacts.getTotalPages());
+        }
+        else{
+            Page<Contact> contacts = contactService.getContacts(user,page,size,sortBy,direction);
+            map.put("contacts", contacts);
+            map.put("currPage",page);
+            map.put("totalPages",contacts.getTotalPages());
+        }
+        map.put("searchForm",search);
+        return "user/view_contacts";
+    }
 }
