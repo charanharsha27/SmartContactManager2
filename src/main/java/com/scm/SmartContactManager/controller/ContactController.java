@@ -1,5 +1,6 @@
 package com.scm.SmartContactManager.controller;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -156,5 +158,68 @@ public class ContactController {
         }
         map.put("searchForm",search);
         return "user/view_contacts";
+    }
+
+    @GetMapping("/view-contact/{contactId}")
+    public String viewContact(@PathVariable("contactId") String contactId,Map<String,Object> map){
+        Contact contact = contactService.getContact(contactId).get();
+        map.put("contact",contact);
+        return "user/view_user";
+    }
+
+    @GetMapping("/update-contact/{id}")
+	public String updateContact(Map<String,Object> map,Principal principal,@PathVariable("id")String id,Authentication authentication)
+	{
+		// String email = GetLoggedInUserName.getLoggedInUserEmail(authentication);
+		// User user = userService.getUserByEmail(email);
+		// map.put("user",user);
+		Contact contact = contactService.getContact(id).get();
+        ContactForm contactForm = new ContactForm();
+        contactForm.setContactId(id);
+        contactForm.setName(contact.getName());
+        contactForm.setEmail(contact.getEmail());
+        contactForm.setFavorite(contact.isFavourite());
+        contactForm.setPhoneNumber(contact.getPhoneNumber());
+        contactForm.setAbout(contact.getAbout());
+        contactForm.setCloudinaryContactId(contact.getProfilePic());
+        map.put("contactForm",contactForm);
+		// map.put("contact",contact);
+
+		return "user/update_contact";
+	}
+
+    @PostMapping("/update-contact/{contactId}")
+    public String updateContact(@PathVariable("contactId") String contactId,@Valid @ModelAttribute ContactForm contactForm,BindingResult rBindingResult,Authentication authentication,HttpSession session,Map<String,Object> map){
+        System.out.println(contactForm);
+        if(rBindingResult.hasErrors() && !(contactForm.getProfilePic().isEmpty())){
+            session.setAttribute("message",new MessageHelper("Fill all the fields correctly","danger"));
+            return "user/add_contact";
+        }
+
+        Contact contact = new Contact();
+        // logger.info("contact Image: "+contactForm.getProfilePic().getOriginalFilename());
+        if(contactForm.getProfilePic().getSize()>0){
+
+            String fileName = UUID.randomUUID().toString();
+            logger.info("File Name : "+fileName);
+            String contactImageUrl = imageService.getImageUrl(contactForm.getProfilePic(),fileName);
+            contact.setProfilePic(contactImageUrl);
+            logger.info("Contact Image URL : "+contactImageUrl);
+            contact.setCloudinaryContactId(fileName);
+        }
+
+        logger.info("Contact Form : "+contactForm);
+        
+        contact.setName(contactForm.getName());
+        contact.setEmail(contactForm.getEmail());
+        contact.setAbout(contactForm.getAbout());
+        contact.setFavourite(contactForm.isFavorite());
+        contact.setPhoneNumber(contactForm.getPhoneNumber());
+
+        Contact c = contactService.updateContact(contact);
+        logger.info("Contact updated : "+c);
+        session.setAttribute("message",new MessageHelper("Contact updated to DB.!","success"));
+        map.put("contactForm",contactForm);
+        return "user/dashboard";
     }
 }

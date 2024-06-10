@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en" th:replace="~{user/base :: basepage(~{::#content},~{::title},~{::script})}">
+
+<head>
+  <title>View User</title>
+</head>
+
+<body>
+  <div id="content">
+
+    <div class="sm:pl-64 pt-15" style="height: 1000px">
+      <div class="grid grid-cols-12">
+        <div class="col-span-3"></div>
+        <div class="col-span-12 md:col-span-6">
+          <div class="container text-center mt-3">
+            <img class="rounded-full object-cover h-48 w-48 mx-auto" th:src="${contact.profilePic}"
+              alt="profile">
+            <h2 class="mt-4 text-xl font-semibold" th:text="${contact.name}"></h2>
+            <!-- <h5 class="text-gray-500">(<span th:text="${contact.nickName}"></span>)</h5> -->
+
+            <table class="table-auto w-full mt-4">
+              <thead>
+                <tr>
+                  <th class="text-left px-4 py-2">ID</th>
+                  <th class="text-left px-4 py-2"><span th:text="${contact.contactId}"></span></th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th class="text-left px-4 py-2">Name</th>
+                  <td class="text-left px-4 py-2"><span th:text="${contact.name}"></span></td>
+                </tr>
+                <tr>
+                  <th class="text-left px-4 py-2">Email</th>
+                  <td class="text-left px-4 py-2"><span th:text="${contact.email}"></span></td>
+                </tr>
+                <tr>
+                  <th class="text-left px-4 py-2">Mobile</th>
+                  <td class="text-left px-4 py-2"><span th:text="${contact.phoneNumber}"></span></td>
+                </tr>
+              </tbody>
+            </table>
+            <h3 class="mt-6 text-lg font-semibold">Contact Description</h3>
+            <div class="container mt-3 text-left">
+              <th:block th:utext="${contact.about}"></th:block>
+            </div>
+          </div>
+          <hr class="my-6">
+          <div class="container text-center">
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mt-3"><a
+                style="text-decoration: none; color: white;" th:href="@{'../../dashboard'}">&lt;&lt; Go Back</a></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+  <script></script>
+</body>
+
+</html>

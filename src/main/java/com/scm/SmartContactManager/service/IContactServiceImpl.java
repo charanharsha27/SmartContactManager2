@@ -46,8 +46,12 @@ public class IContactServiceImpl implements IContactService{
 
     @Override
     public Optional<Contact> getContact(String ContactId) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'getContact'");
+        Optional<Contact> contact = contactDao.findById(ContactId);
+        if(contact.isEmpty()) {
+            throw new ResourceNotFoundException("Contact not found with id: "+ContactId);
+        }
+        System.out.println("Contact found: "+contact.get());
+        return contact;
     }
 
     @Override
@@ -57,9 +61,8 @@ public class IContactServiceImpl implements IContactService{
     }
 
     @Override
-    public Optional<Contact> updateContact(Contact user) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'updateContact'");
+    public Contact updateContact(Contact user) {
+        return contactDao.save(user);
     }
 
     @Override

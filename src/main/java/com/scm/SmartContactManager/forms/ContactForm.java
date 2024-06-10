@@ -20,6 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ContactForm {
+    private String contactId;
     @NotBlank(message = "Contact name is required")
     @Size(min = 3, max = 20, message = "Name must be between 3 to 20 characters")
     private String name;
@@ -34,4 +35,5 @@ public class ContactForm {
     @ValidFile(message = "Invalid file")
     private MultipartFile profilePic;
     private boolean favorite;
+    private String cloudinaryContactId;
 }

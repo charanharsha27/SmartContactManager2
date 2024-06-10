@@ -99,8 +99,8 @@
                                             <a href="">
                                                 <i class="fa-solid w-6 h-6 fa-trash"></i>
                                             </a>
-                                            <a href=""> <i class="fa-solid w-6 h-6 fa-pen"></i></a>
-                                            <a href=""> <i class="fa-solid fa-eye"></i></a>
+                                            <a th:href="@{'/user/contacts/update-contact/' + ${contact.contactId}}"> <i class="fa-solid w-6 h-6 fa-pen"></i></a>
+                                            <a th:href="@{'/user/contacts/view-contact/' + ${contact.contactId}}"> <i class="fa-solid fa-eye"></i></a>
                                         </div>
                                     </td>
                                 </tr>
@@ -135,6 +135,7 @@
                     </div>
                 </div>
             </div>
+            <!-- <div th:replace="~{user/view_user :: model}"></div> -->
         </div>
     </div>
     <script>

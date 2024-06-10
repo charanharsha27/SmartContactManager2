@@ -16,7 +16,7 @@ public interface IContactService {
     public Contact getContactByEmail(String email);
     public Optional<Contact> getContact(String ContactId);
     public List<Contact> getAllContacts();
-    public Optional<Contact> updateContact(Contact user);
+    public Contact updateContact(Contact user);
     public void deleteContact(String ContactId);
     public void deleteContact(Contact contact);
     public Page<Contact> getContacts(User user,int page, int size,String sortBy, String direction);
