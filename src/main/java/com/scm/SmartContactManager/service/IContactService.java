@@ -18,7 +18,6 @@ public interface IContactService {
     public List<Contact> getAllContacts();
     public Contact updateContact(Contact user);
     public void deleteContact(String ContactId);
-    public void deleteContact(Contact contact);
     public Page<Contact> getContacts(User user,int page, int size,String sortBy, String direction);
 
     Page<Contact> getContactsByName(User user, String name, int page, int size, String sortBy, String direction);

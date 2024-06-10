@@ -18,7 +18,12 @@
 
                 <!-- search contacts -->
 
+                <div th:if="${session.message}">
+                    <div th:replace="~{message :: messagebox}">
 
+                    </div>
+
+                </div>
                 <form th:action="@{/user/contacts/search-contacts}" class="max-w-lg mx-auto" th:object="${searchForm}">
                     <div class="flex">
                         <label for="search-dropdown"
@@ -96,9 +101,7 @@
                                     </td>
                                     <td class="px-6 py-4">
                                         <div>
-                                            <a href="">
-                                                <i class="fa-solid w-6 h-6 fa-trash"></i>
-                                            </a>
+                                            <button th:onclick="deleteContact([[${contact.contactId}]])"><i class="fa-solid w-6 h-6 fa-trash"></i></button>
                                             <a th:href="@{'/user/contacts/update-contact/' + ${contact.contactId}}"> <i class="fa-solid w-6 h-6 fa-pen"></i></a>
                                             <a th:href="@{'/user/contacts/view-contact/' + ${contact.contactId}}"> <i class="fa-solid fa-eye"></i></a>
                                         </div>

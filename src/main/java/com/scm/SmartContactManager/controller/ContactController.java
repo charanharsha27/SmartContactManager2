@@ -222,4 +222,12 @@ public class ContactController {
         map.put("contactForm",contactForm);
         return "user/dashboard";
     }
+
+    @GetMapping("/delete-contact/{contactId}")
+    public String deleteContact(@PathVariable("contactId") String contactId,Authentication authentication,HttpSession session){
+        contactService.deleteContact(contactId);
+        MessageHelper messageHelper = new MessageHelper("contact deleted","success");
+        session.setAttribute("message", messageHelper);
+        return "redirect:/user/contacts/view-contacts";
+    }
 }
